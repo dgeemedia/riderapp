@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <div style={{ padding: 20, fontFamily: 'sans-serif' }}>
-      <h1>D Riders — Dispatch Board (Starter)</h1>
+      <h1>D Riders — Dispatch Board</h1>
       <p>Minimal admin dashboard. Click "Ping" to send a ping to a rider (which the rider app will receive).</p>
       <div style={{ display: 'flex', gap: 20 }}>
         <div style={{ flex: 1 }}>
