@@ -1,31 +1,39 @@
-# mypadifood-tracker-starter (Full-stack starter)
-This archive contains three minimal starter projects:
-- backend: Express + Socket.io, OTP endpoints, location endpoint (logs OTP to console for starter).
-- admin: Next.js simple dashboard that connects to backend and shows riders & event log.
-- rider-expo: Expo React Native app with OTP login, socket.io, and background location posting.
+# D Riders - Starter Pack (pnpm)
+This starter pack contains three minimal starter projects:
+- backend: Express + Socket.io (OTP in-memory), location endpoint, admin ping & riders list.
+- admin: Next.js minimal dispatch board that connects to backend via socket.io.
+- rider-expo: Expo React Native starter with phone OTP flow, socket.io, and location posting.
 
-Quick start:
-1. Backend:
+All projects use pnpm as the package manager. Basic process to run locally is below.
+
+## Prerequisites
+- Node.js (v18+ recommended)
+- pnpm (install: `npm i -g pnpm`)
+- For rider-expo: Expo CLI or use the Expo Go app
+
+## Quick start (local)
+1. Backend
    - cd backend
-   - npm install
-   - copy .env.example to .env and set JWT_SECRET
-   - npm run dev
-2. Admin (in another terminal):
+   - pnpm install
+   - cp .env.example .env
+   - edit .env and set JWT_SECRET
+   - pnpm run dev
+2. Admin
    - cd admin
-   - npm install
-   - set NEXT_PUBLIC_BACKEND to backend address (default http://localhost:4000)
-   - npm run dev
-3. Rider:
+   - pnpm install
+   - set NEXT_PUBLIC_BACKEND if backend is remote (default http://localhost:4000)
+   - pnpm run dev
+3. Rider (Expo)
    - cd rider-expo
-   - npm install
-   - start Expo and open on device/emulator. Set EXPO_PUBLIC_BACKEND if backend is remote.
+   - pnpm install
+   - pnpm start
+   - open with Expo Go or an emulator
 
-This is a starter scaffold. You will need to:
-- Wire SMS provider (Twilio/Termii) in backend index.js where OTP is generated.
-- Persist riders and locations to a real DB.
-- Implement authentication hardening and push notifications (FCM).
-- Add background service config for Android and iOS if you need robust background tracking.
+## Notes
+- This is a minimal starter: OTP codes are logged to the backend console. Wire SMS provider (Twilio/Termii) for production.
+- Replace in-memory stores with Postgres/Redis for production.
+- Add FCM/APNs for push notifications and proper background tracking configuration for production rider apps.
 
 If you'd like, I can:
-- Expand any part into a full repo with Dockerfiles, Postgres/Redis wiring, and sample deployment manifests.
-- Implement Twilio OTP wiring and a Postgres schema.
+- Convert this to a full repo with Dockerfiles and postgres+redis setup.
+- Wire Twilio OTP and configure FCM for push notifications.
