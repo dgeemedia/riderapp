@@ -5,22 +5,54 @@ import io from 'socket.io-client';
 export default function Home() {
   const [riders, setRiders] = useState([]);
   const [log, setLog] = useState([]);
+
   useEffect(() => {
-    fetch('/api/riders').then(r => r.json()).then(setRiders);
-    const socket = io(process.env.NEXT_PUBLIC_BACKEND || 'http://localhost:4000', { auth: { role: 'admin' } });
-    socket.on('connect', () => setLog(l => ['connected to backend', ...l]));
-    socket.on('location:update', (data) => {
-      setLog(l => [JSON.stringify(data), ...l].slice(0,50));
-      setRiders(prev => {
-        const idx = prev.findIndex(p => p.id === data.riderId);
-        if (idx === -1) return [{ id: data.riderId, phone: data.phone, name: data.name, lastLocation: data.lastLocation }, ...prev];
-        const copy = [...prev];
-        copy[idx] = { ...copy[idx], lastLocation: data.lastLocation };
-        return copy;
+    let socket;
+    // read token only in browser
+    const token = (typeof window !== 'undefined') ? localStorage.getItem('admin_token') : null;
+
+    async function loadRiders() {
+      try {
+        const res = await fetch('/api/riders', {
+          headers: token ? { Authorization: 'Bearer ' + token } : {}
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({ error: 'Failed' }));
+          console.warn('Failed to load riders', err);
+          return;
+        }
+        const data = await res.json();
+        setRiders(data || []);
+      } catch (e) {
+        console.error('Error fetching riders', e);
+      }
+    }
+
+    loadRiders();
+
+    // only connect socket on client
+    if (typeof window !== 'undefined') {
+      socket = io(process.env.NEXT_PUBLIC_BACKEND || 'http://localhost:4000', {
+        auth: { role: 'admin', token }
       });
-    });
-    socket.on('task:accepted', (d) => setLog(l => [`task accepted: ${JSON.stringify(d)}`, ...l]));
-    return () => socket.disconnect();
+
+      socket.on('connect', () => setLog(l => ['connected to backend', ...l]));
+      socket.on('location:update', (data) => {
+        setLog(l => [JSON.stringify(data), ...l].slice(0, 50));
+        setRiders(prev => {
+          const idx = prev.findIndex(p => p.id === data.riderId);
+          if (idx === -1) return [{ id: data.riderId, phone: data.phone, name: data.name, lastLocation: data.lastLocation }, ...prev];
+          const copy = [...prev];
+          copy[idx] = { ...copy[idx], lastLocation: data.lastLocation };
+          return copy;
+        });
+      });
+      socket.on('task:accepted', (d) => setLog(l => [`task accepted: ${JSON.stringify(d)}`, ...l]));
+    }
+
+    return () => {
+      if (socket) socket.disconnect();
+    };
   }, []);
 
   return (
@@ -37,7 +69,12 @@ export default function Home() {
                 <div>Last: {r.lastLocation ? new Date(r.lastLocation.at).toLocaleString() : 'no location'}</div>
                 <div>
                   <button onClick={() => {
-                    fetch('/api/ping', { method: 'POST', headers: { 'Content-Type':'application/json' }, body: JSON.stringify({ riderId: r.id, message: 'Please accept tasks' }) })
+                    const token = (typeof window !== 'undefined') ? localStorage.getItem('admin_token') : null;
+                    fetch('/api/ping', {
+                      method: 'POST',
+                      headers: { 'Content-Type':'application/json', ...(token ? { Authorization: 'Bearer ' + token } : {}) },
+                      body: JSON.stringify({ riderId: r.id, message: 'Please accept tasks' })
+                    });
                   }}>Ping</button>
                   &nbsp;
                   <a href={`tel:${r.phone}`}>Call</a>
