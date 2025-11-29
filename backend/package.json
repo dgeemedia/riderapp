@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "migrate": "node migrate.js",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },

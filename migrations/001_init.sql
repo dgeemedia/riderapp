@@ -1,4 +1,4 @@
--- migrations/001_init.sql
+-- riderapp/migrations/001_init.sql
 -- Run with psql or supabase migrations
 
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
