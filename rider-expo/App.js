@@ -1,3 +1,4 @@
+// rider-expo/App.js
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TextInput, Button, Alert, Platform } from 'react-native';
 import * as Location from 'expo-location';
