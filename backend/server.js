@@ -33,6 +33,8 @@ const server = http.createServer(app);
 
 const io = new Server(server, { cors: { origin: '*' } });
 
+module.exports.io = io
+
 // initialize socket handlers (in separate file)
 sockets.init(io);
 
