@@ -10,7 +10,7 @@ const riderRoutes = require('./routes/rider.routes');
 const taskRoutes = require('./routes/task.routes');
 const adminRoutes = require('./routes/admin.routes');
 const callRoutes = require('./routes/call.routes');
-const customerRoutes = require('./routes/customers.routes');
+const customerRoutes = require('./routes/customer.routes');
 
 const sockets = require('./sockets');
 

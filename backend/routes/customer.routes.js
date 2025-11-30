@@ -1,4 +1,4 @@
-// backend/routes/customers.routes.js
+// backend/routes/customer.routes.js
 const router = require('express').Router();
 const ctrl = require('../controllers/customer.controller');
 
