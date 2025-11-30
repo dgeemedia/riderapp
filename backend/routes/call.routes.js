@@ -4,13 +4,13 @@ const ctrl = require('../controllers/call.controller');
 const adminAuth = require('../middleware/adminAuth');
 const auth = require('../middleware/auth');
 
-// generate Twilio token for a client (web)
+// Admin-only Twilio token (leave as admin)
 router.post('/twilio/token', adminAuth, ctrl.twilioTokenForClient);
 
-// generate Agora token for a call
-router.post('/agora/token', adminAuth, ctrl.agoraTokenForCall);
+// Agora token: allow authenticated users (riders, customers) and admins.
+router.post('/agora/token', auth, ctrl.agoraTokenForCall);
 
-// optional: create call record
-router.post('/create', adminAuth, ctrl.createCallRecord);
+// create call record (admin or auth) — both allowed
+router.post('/create', auth, ctrl.createCallRecord);
 
 module.exports = router;
