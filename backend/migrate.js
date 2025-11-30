@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const { Pool } = require('pg');
 
-const sqlPath = path.join(__dirname, '..', 'migrations', '002_init_extra.sql');
+const sqlPath = path.join(__dirname, '..', 'migrations', '003_task_updates_calls.sql');
 const sql = fs.readFileSync(sqlPath, 'utf8');
 
 const pool = new Pool({
