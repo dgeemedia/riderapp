@@ -54,3 +54,32 @@ exports.pingRider = async (req, res) => {
     return res.status(500).json({ error: 'server error' });
   }
 };
+
+exports.assignTask = async (req, res) => {
+  // body: { taskId, riderId }
+  try {
+    const { taskId, riderId } = req.body;
+    if (!taskId || !riderId) return res.status(400).json({ error: 'taskId and riderId required' });
+
+    // ensure task exists
+    const tRes = await db.query('SELECT * FROM tasks WHERE id=$1 LIMIT 1', [taskId]);
+    if (!tRes.rows.length) return res.status(404).json({ error: 'task not found' });
+
+    // update assigned rider
+    const u = await db.query('UPDATE tasks SET assigned_rider=$1, status=$2, updated_at=now() WHERE id=$3 RETURNING *', [riderId, 'assigned', taskId]);
+    const task = u.rows[0];
+
+    // notify rider via socket if connected
+    try {
+      const io = require('../server').io;
+      if (io) {
+        io.to('rider:' + riderId).emit('task:assign', { task });
+      }
+    } catch (e) { console.warn('emit assign error', e?.message || e); }
+
+    return res.json({ ok: true, task });
+  } catch (err) {
+    console.error('assignTask', err?.message || err);
+    return res.status(500).json({ error: 'server error' });
+  }
+};

@@ -2,8 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/api/ping": "pages/api/ping.js",
-  "/api/riders": "pages/api/riders.js",
   "/": "pages/index.js",
-  "/login": "pages/login.js"
+  "/test": "pages/test.js",
+  "/test-assignmodal": "pages/test-assignmodal.js",
+  "/test-map": "pages/test-map.js",
+  "/test-callpanel": "pages/test-callpanel.js"
 }

@@ -1,6 +1,8 @@
 // admin/components/CallPanel.js
 import { useEffect, useRef, useState } from 'react';
-import AgoraRTC from 'agora-rtc-sdk-ng';
+
+// NOTE: we DO NOT import 'agora-rtc-sdk-ng' at top-level (that would run in Node/SSR).
+// We'll dynamically import it inside joinAgora when running in the browser.
 
 export default function CallPanel({ backend = process.env.NEXT_PUBLIC_BACKEND || 'http://localhost:4000' }) {
   const [riderId, setRiderId] = useState('');
@@ -21,22 +23,20 @@ export default function CallPanel({ backend = process.env.NEXT_PUBLIC_BACKEND ||
   async function startCallToRider() {
     if (!riderId) return alert('Enter rider id');
     try {
-      // 1) create call record + notify rider
       const notifyRes = await fetch(backend + '/api/call/notify', {
         method: 'POST',
-        headers: { 'content-type':'application/json', Authorization: 'Bearer ' + localStorage.getItem('admin_token') },
+        headers: { 'content-type': 'application/json', Authorization: 'Bearer ' + localStorage.getItem('admin_token') },
         body: JSON.stringify({ callee_rider_id: riderId, caller_type: 'admin', caller_id: 'admin' })
       });
       const notifyJson = await notifyRes.json();
       if (!notifyRes.ok) throw new Error(notifyJson.error || 'notify failed');
 
-      const channel = notifyJson.call.channel || notifyJson.call.channel; // channel from DB
+      const channel = notifyJson.call.channel;
       setCallLog(l => [`Notified rider ${riderId}`, ...l]);
 
-      // 2) request Agora token to join (admin client)
       const tkRes = await fetch(backend + '/api/call/agora/token', {
         method: 'POST',
-        headers: { 'content-type':'application/json', Authorization: 'Bearer ' + localStorage.getItem('admin_token') },
+        headers: { 'content-type': 'application/json', Authorization: 'Bearer ' + localStorage.getItem('admin_token') },
         body: JSON.stringify({ channel })
       });
       const tkJson = await tkRes.json();
@@ -51,6 +51,14 @@ export default function CallPanel({ backend = process.env.NEXT_PUBLIC_BACKEND ||
   }
 
   async function joinAgora(appId, token, channel, uid = 0) {
+    // Only import Agora on the client at time of use
+    if (typeof window === 'undefined') {
+      throw new Error('Agora must be used in the browser');
+    }
+
+    const AgoraModule = await import('agora-rtc-sdk-ng');
+    const AgoraRTC = AgoraModule?.default || AgoraModule;
+
     const client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
     clientRef.current = client;
 
@@ -84,21 +92,21 @@ export default function CallPanel({ backend = process.env.NEXT_PUBLIC_BACKEND ||
         <button onClick={startCallToRider} style={{ marginLeft: 8 }}>Call Rider</button>
       </div>
 
-      <div style={{ display:'flex', gap:8, marginTop:12 }}>
-        <div style={{ width:'50%' }}>
+      <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
+        <div style={{ width: '50%' }}>
           <div>Local</div>
-          <div ref={localRef} style={{ width:'100%', height: '300px', background:'#000' }} />
+          <div ref={localRef} style={{ width: '100%', height: '300px', background: '#000' }} />
         </div>
-        <div style={{ width:'50%' }}>
+        <div style={{ width: '50%' }}>
           <div>Remote</div>
-          <div ref={remoteRef} style={{ width:'100%', height: '300px', background:'#000' }} />
+          <div ref={remoteRef} style={{ width: '100%', height: '300px', background: '#000' }} />
         </div>
       </div>
 
-      <div style={{ marginTop:12 }}>
+      <div style={{ marginTop: 12 }}>
         <h4>Log</h4>
-        <div style={{ maxHeight:200, overflow:'auto', border:'1px solid #eee', padding:8 }}>
-          {callLog.map((l,i) => <div key={i} style={{ fontSize:12 }}>{l}</div>)}
+        <div style={{ maxHeight: 200, overflow: 'auto', border: '1px solid #eee', padding: 8 }}>
+          {callLog.map((l, i) => <div key={i} style={{ fontSize: 12 }}>{l}</div>)}
         </div>
       </div>
     </div>
