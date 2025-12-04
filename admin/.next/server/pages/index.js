@@ -55,6 +55,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "leaflet":
+/*!**************************!*\
+  !*** external "leaflet" ***!
+  \**************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("leaflet");
+
+/***/ }),
+
 /***/ "next/dist/compiled/next-server/pages.runtime.dev.js":
 /*!**********************************************************************!*\
   !*** external "next/dist/compiled/next-server/pages.runtime.dev.js" ***!
@@ -85,6 +96,17 @@ module.exports = require("react");
 
 "use strict";
 module.exports = require("react/jsx-dev-runtime");
+
+/***/ }),
+
+/***/ "react-leaflet":
+/*!********************************!*\
+  !*** external "react-leaflet" ***!
+  \********************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = import("react-leaflet");;
 
 /***/ }),
 
