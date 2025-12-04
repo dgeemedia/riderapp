@@ -2,9 +2,10 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
   "/test": "pages/test.js",
-  "/test-assignmodal": "pages/test-assignmodal.js",
   "/test-map": "pages/test-map.js",
-  "/test-callpanel": "pages/test-callpanel.js"
+  "/test-callpanel": "pages/test-callpanel.js",
+  "/api/riders": "pages/api/riders.js",
+  "/": "pages/index.js",
+  "/test-assignmodal": "pages/test-assignmodal.js"
 }

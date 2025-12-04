@@ -1,16 +1,4 @@
 {
-  "..\\components\\AdminMap.js -> leaflet": {
-    "id": "..\\components\\AdminMap.js -> leaflet",
-    "files": [
-      "static/chunks/node_modules_pnpm_leaflet_1_9_4_node_modules_leaflet_dist_leaflet-src_js.js"
-    ]
-  },
-  "..\\components\\AdminMap.js -> react-leaflet": {
-    "id": "..\\components\\AdminMap.js -> react-leaflet",
-    "files": [
-      "static/chunks/node_modules_pnpm_react-leaflet_5_0_0_leaflet_536db653edd9076c36ecb569b502cc12_node_modules_r-05758b.js"
-    ]
-  },
   "..\\components\\CallPanel.js -> agora-rtc-sdk-ng": {
     "id": "..\\components\\CallPanel.js -> agora-rtc-sdk-ng",
     "files": [
