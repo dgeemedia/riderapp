@@ -1,4 +1,4 @@
-// admin/components/AssignModal.js
+// admin/components/modals/AssignModal.jsx
 import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon, UserGroupIcon } from '@heroicons/react/24/outline';

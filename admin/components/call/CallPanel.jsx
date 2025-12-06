@@ -1,4 +1,4 @@
-// admin/components/CallPanel.js
+// admin/components/call/CallPanel.jsx
 import { useEffect, useRef, useState } from 'react';
 
 // NOTE: we DO NOT import 'agora-rtc-sdk-ng' at top-level (that would run in Node/SSR).

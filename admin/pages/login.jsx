@@ -1,4 +1,4 @@
-// admin/pages/login.js
+// admin/pages/login.jsx
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { LockClosedIcon, EnvelopeIcon } from '@heroicons/react/24/outline';

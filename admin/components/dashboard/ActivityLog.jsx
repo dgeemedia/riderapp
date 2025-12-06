@@ -1,9 +1,9 @@
-// admin/components/ActivityLog.js
+// admin/components/dashboard/ActivityLog.jsx
 import { useState } from 'react';
 import { BellIcon, ClockIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 export default function ActivityLog({ logs }) {
-  const [filter, setFilter] = useState('all'); // all, success, error, info
+  const [filter, setFilter] = useState('all');
 
   const filteredLogs = logs.filter(log => {
     if (filter === 'all') return true;
@@ -39,7 +39,7 @@ export default function ActivityLog({ logs }) {
 
   return (
     <div className="glass-card rounded-2xl overflow-hidden h-full">
-      <div className="p-6 border-b border-slate-700/50">
+      <div className="p-4 sm:p-6 border-b border-slate-700/50">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center">

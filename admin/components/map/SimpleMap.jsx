@@ -1,4 +1,4 @@
-// admin/components/SimpleMap.js
+// admin/components/map/SimpleMap.jsx
 import { useEffect, useState } from 'react';
 
 export default function SimpleMap({ riders = [], center = [9.0765, 7.3986] }) {

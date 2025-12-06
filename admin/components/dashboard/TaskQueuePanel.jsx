@@ -1,9 +1,9 @@
-// admin/components/TaskQueuePanel.js
+// admin/components/dashboard/TaskQueuePanel.jsx
 import { useState } from 'react';
-import { ClipboardDocumentListIcon, ClockIcon, MapPinIcon } from '@heroicons/react/24/outline';
+import { ClipboardDocumentListIcon, ClockIcon } from '@heroicons/react/24/outline';
 
 export default function TaskQueuePanel({ tasks, onAssign, isLoading }) {
-  const [filter, setFilter] = useState('all'); // all, pending, assigned, completed
+  const [filter, setFilter] = useState('all');
 
   const filteredTasks = tasks.filter(task => {
     if (filter === 'all') return true;
@@ -31,8 +31,8 @@ export default function TaskQueuePanel({ tasks, onAssign, isLoading }) {
 
   return (
     <div className="glass-card rounded-2xl overflow-hidden h-full">
-      <div className="p-6 border-b border-slate-700/50">
-        <div className="flex items-center justify-between">
+      <div className="p-4 sm:p-6 border-b border-slate-700/50">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-3 sm:space-y-0">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-pink-600 flex items-center justify-center">
               <ClipboardDocumentListIcon className="w-5 h-5 text-white" />
@@ -44,12 +44,12 @@ export default function TaskQueuePanel({ tasks, onAssign, isLoading }) {
               </p>
             </div>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 overflow-x-auto pb-2 sm:pb-0">
             {['all', 'pending', 'assigned', 'completed'].map((f) => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap ${
                   filter === f
                     ? 'bg-slate-700 text-white'
                     : 'bg-slate-800/50 text-slate-400 hover:text-white'

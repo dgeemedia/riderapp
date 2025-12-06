@@ -1,4 +1,4 @@
-// admin/components/AdminMap.js
+// admin/components/map/AdminMap.jsx
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 
