@@ -1,6 +1,4 @@
-// EMERGENCY PATCH - Returns a safe placeholder for all icons
-// This will let the app run while we find and fix the real usages
-
+// admin/components/shared/ResponsiveIcon.jsx
 import React from 'react';
 
 // Import ALL possible icons we might need
