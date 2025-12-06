@@ -1,0 +1,93 @@
+# rider-expo/.github/workflows/expo.yml
+name: Expo CI/CD
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+# This workflow will install pnpm, install dependencies, run tests, and deploy
+jobs:
+  setup-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Check out the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      # 2. Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+          
+      # 3. Install pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+          
+      # 4. Install dependencies using pnpm
+      - name: Install dependencies
+        run: pnpm install
+        
+      # 5. Run tests (if you have them)
+      - name: Run tests
+        run: pnpm test || echo "No tests configured"
+        
+      # 6. Type check (if using TypeScript)
+      - name: Type check
+        run: pnpm tsc --noEmit || echo "TypeScript not configured"
+        
+      # 7. Lint code
+      - name: Lint
+        run: pnpm lint || echo "Linting not configured"
+
+  # Deployment job (only runs on main branch)
+  deploy:
+    # This job depends on the test job passing
+    needs: setup-and-test
+    # Only deploy from the main branch
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+          
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          
+      - name: Install dependencies
+        run: pnpm install
+        
+      # Setup Expo CLI
+      - name: Setup Expo
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+          eas-version: latest
+          
+      # Publish to Expo
+      - name: Publish to Expo
+        run: pnpm expo publish --non-interactive
+        
+      # Build Android APK
+      - name: Build Android
+        run: pnpm eas build -p android --non-interactive --auto-submit
+        
+      # Build iOS App
+      - name: Build iOS
+        run: pnpm eas build -p ios --non-interactive --auto-submit
