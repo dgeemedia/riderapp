@@ -1,0 +1,24 @@
+{
+  "buildCommand": "pnpm build:web",
+  "outputDirectory": "web-build",
+  "devCommand": "pnpm web",
+  "installCommand": "pnpm install",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "/"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    }
+  ]
+}

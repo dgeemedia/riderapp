@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-Riders App Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background: #0f172a;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background: #1e293b;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            font-size: 32px;
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+        
+        .logo p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        .screen {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #334155;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .nav-item.active {
+            color: #10b981;
+        }
+        
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        
+        .nav-item span {
+            font-size: 12px;
+        }
+        
+        .button {
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .stat {
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #10b981;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        
+        .task {
+            background: #0f172a;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #10b981;
+        }
+        
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .task-status {
+            background: #10b98120;
+            color: #10b981;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .task-price {
+            font-weight: bold;
+            color: #10b981;
+        }
+        
+        .task-location {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .dot.green {
+            background: #10b981;
+        }
+        
+        .dot.red {
+            background: #ef4444;
+        }
+        
+        .language-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .lang-btn {
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        
+        .lang-btn:hover {
+            background: #475569;
+        }
+        
+        .lang-btn.active {
+            background: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>D-Riders</h1>
+            <p>Rider Delivery App</p>
+        </div>
+        
+        <div class="screen">
+            <!-- Login Screen -->
+            <div id="login-screen">
+                <h3 style="margin-bottom: 20px; color: #e2e8f0;">Welcome Rider</h3>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: #94a3b8; margin-bottom: 8px;">Phone Number</label>
+                    <input type="tel" placeholder="+234 801 234 5678" style="
+                        width: 100%;
+                        padding: 12px;
+                        background: #0f172a;
+                        border: 1px solid #334155;
+                        border-radius: 8px;
+                        color: white;
+                        font-size: 16px;
+                    ">
+                </div>
+                <button class="button" onclick="showOTP()">Send OTP</button>
+            </div>
+            
+            <!-- OTP Screen (hidden initially) -->
+            <div id="otp-screen" style="display: none;">
+                <h3 style="margin-bottom: 20px; color: #e2e8f0;">Enter OTP</h3>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: #94a3b8; margin-bottom: 8px;">6-digit code</label>
+                    <input type="text" placeholder="123456" style="
+                        width: 100%;
+                        padding: 12px;
+                        background: #0f172a;
+                        border: 1px solid #334155;
+                        border-radius: 8px;
+                        color: white;
+                        font-size: 16px;
+                        letter-spacing: 10px;
+                        text-align: center;
+                    ">
+                </div>
+                <button class="button" onclick="showDashboard()">Verify & Login</button>
+            </div>
+            
+            <!-- Dashboard (hidden initially) -->
+            <div id="dashboard" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div>
+                        <h3 style="color: #e2e8f0;">Welcome, Rider</h3>
+                        <p style="color: #94a3b8; font-size: 14px;">+234 801 234 5678</p>
+                    </div>
+                    <div style="background: #10b981; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <span style="color: white; font-weight: bold;">R</span>
+                    </div>
+                </div>
+                
+                <!-- Stats -->
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Active Tasks</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">24</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">₦8,500</div>
+                        <div class="stat-label">Balance</div>
+                    </div>
+                </div>
+                
+                <!-- Tasks -->
+                <h4 style="color: #e2e8f0; margin: 20px 0 10px 0;">Active Tasks</h4>
+                <div class="task">
+                    <div class="task-header">
+                        <div class="task-status">Assigned</div>
+                        <div class="task-price">₦2,500</div>
+                    </div>
+                    <div class="task-location">
+                        <div class="dot green"></div>
+                        Pickup: Ikeja City Mall
+                    </div>
+                    <div class="task-location">
+                        <div class="dot red"></div>
+                        Dropoff: Victoria Island
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <div class="task-header">
+                        <div class="task-status">Picked Up</div>
+                        <div class="task-price">₦1,800</div>
+                    </div>
+                    <div class="task-location">
+                        <div class="dot green"></div>
+                        Pickup: Lekki Phase 1
+                    </div>
+                    <div class="task-location">
+                        <div class="dot red"></div>
+                        Dropoff: Ajah
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="nav">
+            <div class="nav-item active" onclick="showScreen('home')">
+                <span>🏠</span>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('tasks')">
+                <span>📋</span>
+                <span>Tasks</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('wallet')">
+                <span>💰</span>
+                <span>Wallet</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('profile')">
+                <span>👤</span>
+                <span>Profile</span>
+            </div>
+        </div>
+        
+        <!-- Language Selector -->
+        <div class="language-selector">
+            <button class="lang-btn active" onclick="setLanguage('en')">🇺🇸 English</button>
+            <button class="lang-btn" onclick="setLanguage('fr')">🇫🇷 Français</button>
+            <button class="lang-btn" onclick="setLanguage('es')">🇪🇸 Español</button>
+            <button class="lang-btn" onclick="setLanguage('ig')">🇳🇬 Igbo</button>
+            <button class="lang-btn" onclick="setLanguage('yo')">🇳🇬 Yorùbá</button>
+        </div>
+    </div>
+    
+    <script>
+        function showOTP() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('otp-screen').style.display = 'block';
+        }
+        
+        function showDashboard() {
+            document.getElementById('otp-screen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+        }
+        
+        function showScreen(screen) {
+            // Update active nav
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            
+            // Here you would update the screen content
+            alert('Navigating to ' + screen + ' screen');
+        }
+        
+        function setLanguage(lang) {
+            // Update active language button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            
+            // Here you would update all text to selected language
+            alert('Language changed to ' + lang);
+        }
+    </script>
+</body>
+</html>
