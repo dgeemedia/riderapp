@@ -11,6 +11,10 @@ const taskRoutes = require('./routes/task.routes');
 const adminRoutes = require('./routes/admin.routes');
 const callRoutes = require('./routes/call.routes');
 const customerRoutes = require('./routes/customer.routes');
+const vendorRoutes = require('./routes/vendor.routes');
+const productRoutes = require('./routes/product.routes');
+const orderRoutes = require('./routes/order.routes');
+const weeklyPlanRoutes = require('./routes/weeklyPlan.routes');
 
 const sockets = require('./sockets');
 
@@ -25,6 +29,10 @@ app.use('/api/tasks', taskRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/call', callRoutes);
 app.use('/api/customers', customerRoutes);
+app.use('/api/vendors', vendorRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/weekly-plans', weeklyPlanRoutes);
 
 // health
 app.get('/health', (req, res) => res.json({ ok: true, now: Date.now() }));

@@ -1,3 +1,4 @@
+// admin/utils/icons.js
 import {
   MapPinIcon,
   UsersIcon,

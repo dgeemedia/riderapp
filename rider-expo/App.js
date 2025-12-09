@@ -1,4 +1,8 @@
 // rider-expo/App.js
+import 'expo-dev-client';
+import 'react-native-gesture-handler';
+import 'react-native-reanimated';
+
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';

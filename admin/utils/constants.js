@@ -1,3 +1,4 @@
+// admin/utils/constants.js
 /**
  * Application-wide constants
  */

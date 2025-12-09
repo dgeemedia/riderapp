@@ -17,7 +17,6 @@ import { useTasks } from '../context/TaskContext';
 import { useAuth } from '../context/AuthContext';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { format, formatDistance } from 'date-fns';
-import MapView, { Marker, Polyline } from 'react-native-maps';
 
 export default function TaskScreen({ navigation }) {
   const { tasks, loading, refreshTasks, acceptTask, updateTaskStatus } = useTasks();
