@@ -1,4 +1,4 @@
-// admin/components/layout/Layout.jsx
+// admin/components/layout/Layout.jsx - UPDATED NAV ITEMS
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -9,6 +9,10 @@ import {
   ClipboardDocumentListIcon,
   PhoneIcon,
   Cog6ToothIcon,
+  ShoppingBagIcon, // Add for orders
+  BuildingStorefrontIcon, // Add for vendors
+  CalendarIcon, // Add for weekly plans
+  ShoppingCartIcon, // Add for products
 } from '@heroicons/react/24/outline';
 
 import Header from './Header';
@@ -37,38 +41,62 @@ export default function Layout({ children }) {
     }
   }, [router]);
 
-  // Pass actual icon components, not strings
+  // Pass actual icon components, not strings - UPDATED WITH NEW PAGES
   const navItems = [
     { 
       name: 'Dashboard', 
       href: '/', 
-      icon: ChartBarIcon,  // Actual component, not string
+      icon: ChartBarIcon,
       current: router.pathname === '/' 
     },
     { 
       name: 'Live Riders', 
       href: '#riders', 
-      icon: UsersIcon  // Actual component
+      icon: UsersIcon
     },
     { 
       name: 'Task Queue', 
       href: '#tasks', 
-      icon: ClipboardDocumentListIcon  // Actual component
+      icon: ClipboardDocumentListIcon
+    },
+    { 
+      name: 'Vendors', 
+      href: '/vendors', 
+      icon: BuildingStorefrontIcon,
+      current: router.pathname === '/vendors'
+    },
+    { 
+    name: 'Products', 
+    href: '/products', 
+    icon: ShoppingCartIcon,
+    current: router.pathname === '/products'
+    },
+    { 
+      name: 'Orders', 
+      href: '/orders', 
+      icon: ShoppingBagIcon,
+      current: router.pathname === '/orders'
+    },
+    { 
+      name: 'Weekly Plans', 
+      href: '/weekly-plans', 
+      icon: CalendarIcon,
+      current: router.pathname === '/weekly-plans'
     },
     { 
       name: 'Call Center', 
       href: '/call-demo', 
-      icon: PhoneIcon  // Actual component
+      icon: PhoneIcon
     },
     { 
       name: 'Analytics', 
       href: '#analytics', 
-      icon: ChartBarIcon  // Actual component
+      icon: ChartBarIcon
     },
     { 
       name: 'Settings', 
       href: '#settings', 
-      icon: Cog6ToothIcon  // Actual component
+      icon: Cog6ToothIcon
     },
   ];
 
@@ -92,7 +120,8 @@ export default function Layout({ children }) {
         />
         
         <main className="flex-1 p-3 sm:p-4 lg:p-6">
-          <StatsCards />
+          {/* Only show StatsCards on dashboard page */}
+          {router.pathname === '/' && <StatsCards />}
           {children}
         </main>
         
