@@ -3,9 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
-  "/api/vendors": "pages/api/vendors.js",
-  "/api/orders": "pages/api/orders.js",
-  "/api/weekly-plans": "pages/api/weekly-plans.js",
-  "/api/products": "pages/api/products.js",
-  "/orders": "pages/orders.js"
+  "/vendors": "pages/vendors.js"
 }

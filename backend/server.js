@@ -15,6 +15,8 @@ const vendorRoutes = require('./routes/vendor.routes');
 const productRoutes = require('./routes/product.routes');
 const orderRoutes = require('./routes/order.routes');
 const weeklyPlanRoutes = require('./routes/weeklyPlan.routes');
+const customerAuthRoutes = require('./routes/customerAuth.routes');
+const vendorAuthRoutes = require('./routes/vendorAuth.routes');
 
 const sockets = require('./sockets');
 
@@ -33,6 +35,8 @@ app.use('/api/vendors', vendorRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/weekly-plans', weeklyPlanRoutes);
+app.use('/api/auth/customer', customerAuthRoutes);
+app.use('/api/auth/vendor', vendorAuthRoutes);
 
 // health
 app.get('/health', (req, res) => res.json({ ok: true, now: Date.now() }));
