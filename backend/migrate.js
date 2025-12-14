@@ -6,9 +6,6 @@ const fs = require('fs');
 const path = require('path');
 const { Pool } = require('pg');
 
-const sqlPath = path.join(__dirname, '..', 'migrations', '005_rider_features.sql');
-const sql = fs.readFileSync(sqlPath, 'utf8');
-
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL || process.env.POSTGRES_URL,
   ssl: {
@@ -19,9 +16,14 @@ const pool = new Pool({
 
 (async () => {
   try {
-    console.log('Running migration...');
+    console.log('Running clean setup migration...');
+    const filePath = path.join(__dirname, '..', 'migrations', '007_clean_setup.sql');
+    const sql = fs.readFileSync(filePath, 'utf8');
+    
+    // Run the SQL
     await pool.query(sql);
-    console.log('Migration completed.');
+    
+    console.log('Migration completed successfully!');
     await pool.end();
     process.exit(0);
   } catch (err) {
